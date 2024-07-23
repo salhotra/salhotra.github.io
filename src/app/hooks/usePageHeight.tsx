@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function usePageHeight(containerRef: React.RefObject<HTMLDivElement | null>) {
   // page scrollable height based on content length
@@ -12,7 +12,7 @@ function usePageHeight(containerRef: React.RefObject<HTMLDivElement | null>) {
   }, []);
 
   // observe when browser is resizing
-  useLayoutEffect(() => {
+  useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) =>
       resizePageHeight(entries)
     );
