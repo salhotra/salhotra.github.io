@@ -6,6 +6,24 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { HeaderHeightPx } from "./Header";
+import { MobileWidthPx } from "../constants";
+
+const aboutMe: string[] = [
+  `I have dedicated a decade of my life to the art of software development.
+  My journey started with a simple Hello World program in C over 10 years
+  ago and has since evolved into a passion for building scalable,
+  maintainable, and efficient software systems. I have worked with a
+  variety of technologies over the years, including JavaScript,
+  TypeScript, Node, React, GraphQL, and many more.`,
+
+  `I have experience
+  building web applications, APIs, and testing, as well as working with
+  databases and cloud services. I have built and maintained 15+ projects
+  in my career, including 8 mobile applications and 9 web applications in
+  a professional capacity. I have also built some personal projects,
+  albeit smaller in scale and experimental in nature.`,
+];
 
 const useContainerSize = (ref: React.RefObject<HTMLDivElement>) => {
   const [containerWidth, setContainerWidth] = useState(0);
@@ -108,20 +126,10 @@ function MaskedText({ text }: { text: string }) {
   }, [text, containerWidth]);
 
   return (
-    <div
-      ref={containerRef}
-      className="w-full"
-      style={{
-        boxSizing: "border-box",
-      }}
-    >
+    <div ref={containerRef} className="w-full box-border">
       <div
         ref={testElementRef}
-        style={{
-          position: "absolute",
-          visibility: "hidden",
-          whiteSpace: "nowrap",
-        }}
+        className="absolute whitespace-nowrap invisible"
       />
       {lines.map((line, index) => (
         <TextLine
@@ -173,36 +181,32 @@ function TextLine({
 }
 
 function About() {
+  const textWrapperRef = useRef<HTMLDivElement | null>(null);
+  const windowSize = useWindowSize();
+  const headingVerticalMargin =
+    windowSize.width > MobileWidthPx ? windowSize.height * 0.15 : 32;
+
   return (
-    <div className="flex flex-col w-full h-full md:px-12 px-4">
+    <div className="flex flex-col w-full h-full">
       <h1
-        className={"md:text-8xl font-bold md:my-12 my-4"}
+        className="md:text-8xl font-bold md:mx-8 mx-4"
         style={{
-          fontSize: "min(10vw, 12em)",
+          fontSize: "min(15vw, 175px)",
+          marginTop: headingVerticalMargin + HeaderHeightPx,
+          marginBottom: headingVerticalMargin,
         }}
       >
         ABOUT ME
       </h1>
-      <div className="text-4xl md:mt-24 mt-6 leading-normal font-medium">
-        <MaskedText
-          text={`I have dedicated a decade of my life to the art of software development.
-          My journey started with a simple Hello World program in C over 10 years
-          ago and has since evolved into a passion for building scalable,
-          maintainable, and efficient software systems. I have worked with a
-          variety of technologies over the years, including JavaScript,
-          TypeScript, Node, React, GraphQL, and many more.`}
-        />
-
-        <br />
-
-        <MaskedText
-          text={`I have experience
-          building web applications, APIs, and testing, as well as working with
-          databases and cloud services. I have built and maintained 15+ projects
-          in my career, including 8 mobile applications and 9 web applications in
-          a professional capacity. I have also built some personal projects,
-          albeit smaller in scale and experimental in nature.`}
-        />
+      <div ref={textWrapperRef}>
+        <div className="text-4xl leading-normal font-medium md:mx-8 mx-4">
+          {aboutMe.map((text, index) => (
+            <>
+              <MaskedText key={index} text={text} />
+              {index < aboutMe.length - 1 && <br />}
+            </>
+          ))}
+        </div>
       </div>
     </div>
   );

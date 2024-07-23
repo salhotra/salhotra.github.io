@@ -5,7 +5,7 @@ import { kiMedium } from "./fonts";
 import Stars from "./components/Stars";
 import TypedText from "./components/TypedText";
 import About from "./components/About";
-import { Suspense, useRef } from "react";
+import { useRef } from "react";
 import Header from "./components/Header";
 import Contact from "./components/Contact";
 
@@ -25,9 +25,7 @@ export default function Home(): JSX.Element {
         ref={firstSectionRef}
         className="w-full h-[100vh] relative bg-spaceblack"
       >
-        <Suspense fallback={<span>Loading...</span>}>
-          <Stars />
-        </Suspense>
+        <Stars />
         <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center">
           <h1
             className={clsx(
@@ -43,7 +41,7 @@ export default function Home(): JSX.Element {
           </h1>
         </div>
       </section>
-      <section className="w-full mt-48 bg-white" ref={aboutSectionRef}>
+      <section className="w-full bg-white" ref={aboutSectionRef}>
         <About />
       </section>
       <section className="w-full h-96 pt-24 bg-white" ref={contactSectionRef}>
