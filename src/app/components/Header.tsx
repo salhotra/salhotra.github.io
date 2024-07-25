@@ -30,7 +30,7 @@ const Theme = {
 function scrollToSection(sectionRef: React.RefObject<HTMLDivElement | null>) {
   if (sectionRef.current) {
     const topOffset = sectionRef.current.offsetTop;
-    window.scrollTo({ top: topOffset - 160, behavior: "smooth" });
+    window.scrollTo({ top: topOffset, behavior: "smooth" });
   } else {
     alert("Section not found");
   }

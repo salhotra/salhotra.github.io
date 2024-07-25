@@ -41,10 +41,16 @@ export default function Home(): JSX.Element {
           </h1>
         </div>
       </section>
-      <section className="w-full bg-white" ref={aboutSectionRef}>
+      <section
+        className="w-full bg-white overflow-hidden"
+        ref={aboutSectionRef}
+      >
         <About />
       </section>
-      <section className="w-full h-96 pt-24 bg-white" ref={contactSectionRef}>
+      <section
+        className="w-full bg-white overflow-hidden"
+        ref={contactSectionRef}
+      >
         <Contact />
       </section>
     </main>

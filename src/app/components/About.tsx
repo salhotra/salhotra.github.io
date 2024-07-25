@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Fragment } from "react";
 import {
   motion,
   useMotionValue,
@@ -8,6 +8,8 @@ import {
 } from "framer-motion";
 import { HeaderHeightPx } from "./Header";
 import { MobileWidthPx } from "../constants";
+import SectionHeading from "../ui/SectionHeading";
+import useWindowSize from "../hooks/useWindowSize";
 
 const aboutMe: string[] = [
   `I have dedicated a decade of my life to the art of software development.
@@ -50,34 +52,6 @@ const useContainerSize = (ref: React.RefObject<HTMLDivElement>) => {
   }, [ref]);
 
   return { containerWidth, containerHeight };
-};
-
-const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({
-    width: 0,
-    height: 0,
-  });
-
-  useEffect(() => {
-    // Initial window size. This is done here instead of in the useState
-    // declaration because the window object is not available on the server.
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return windowSize;
 };
 
 const splitTextIntoLines = (
@@ -188,23 +162,19 @@ function About() {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <h1
-        className="md:text-8xl font-bold md:mx-8 mx-4"
-        style={{
-          fontSize: "min(15vw, 175px)",
-          marginTop: headingVerticalMargin + HeaderHeightPx,
-          marginBottom: headingVerticalMargin,
-        }}
+      <SectionHeading
+        marginTop={headingVerticalMargin + HeaderHeightPx}
+        marginBottom={headingVerticalMargin}
       >
         ABOUT ME
-      </h1>
+      </SectionHeading>
       <div ref={textWrapperRef}>
         <div className="text-4xl leading-normal font-medium md:mx-8 mx-4">
           {aboutMe.map((text, index) => (
-            <>
-              <MaskedText key={index} text={text} />
+            <Fragment key={index}>
+              <MaskedText text={text} />
               {index < aboutMe.length - 1 && <br />}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>
