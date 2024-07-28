@@ -146,12 +146,34 @@ function ContactForm(): JSX.Element {
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>();
 
+  const onSubmit = async (values: ContactFormValues) => {
+    console.log({ values });
+
+    const body = JSON.stringify(values);
+
+    try {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_GOOGLE_SHEET_API_URL as string,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body,
+        }
+      );
+
+      console.log({ response });
+    } catch (e) {
+      console.error(e);
+      alert("Failed to submit form. Please try again later.");
+    }
+  };
+
   return (
     <form
       className="flex flex-col items-center justify-center mx-8 md:text-4xl text-xl text-center"
-      onSubmit={handleSubmit((values) => {
-        console.log(values);
-      })}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <FormLine>
         <span>
@@ -223,7 +245,7 @@ function ContactForm(): JSX.Element {
         type="submit"
         className="p-2 my-2 bg-blue-500 text-white rounded-md"
       >
-        Submit
+        {isSubmitting ? "Submitting..." : "Submit"}
       </button>
     </form>
   );
