@@ -160,6 +160,7 @@ function ContactForm(): JSX.Element {
             "Content-Type": "application/json",
           },
           body,
+          mode: "no-cors",
         }
       );
 
