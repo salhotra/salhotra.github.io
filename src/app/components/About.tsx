@@ -169,7 +169,7 @@ function About() {
         ABOUT ME
       </SectionHeading>
       <div ref={textWrapperRef}>
-        <div className="text-4xl leading-normal font-medium md:mx-8 mx-4">
+        <div className="md:text-4xl text-2xl md:leading-normal leading-relaxed font-medium md:mx-8 mx-4">
           {aboutMe.map((text, index) => (
             <Fragment key={index}>
               <MaskedText text={text} />

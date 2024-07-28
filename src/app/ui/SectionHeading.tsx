@@ -9,7 +9,7 @@ function SectionHeading({ children, marginTop, marginBottom }: Props) {
     <h1
       className="md:text-8xl font-bold md:mx-8 mx-4"
       style={{
-        fontSize: "min(15vw, 175px)",
+        fontSize: "min(12vw, 175px)",
         marginTop,
         marginBottom,
       }}
