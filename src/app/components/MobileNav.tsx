@@ -9,15 +9,10 @@ import { SiMeteor } from "react-icons/si";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import Button from "../ui/Button";
-import { HeaderTheme } from "../constants";
 import Stars from "./Stars";
 
 function supportsBackdropFilter() {
-  const element = document.createElement("div");
-  element.style.cssText = "backdrop-filter: blur(10px);";
-  const supports = element.style.backdropFilter !== "";
-  element.remove();
-  return supports;
+  return CSS.supports("backdrop-filter: blur(10px)");
 }
 
 const MotionSiMeteor = motion(SiMeteor, {
