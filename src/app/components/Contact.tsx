@@ -20,6 +20,7 @@ import {
 } from "react-hook-form";
 import { upperFirst } from "../utils/upperFirst";
 import Button from "../ui/Button";
+import { toast } from "react-toastify";
 
 interface ContactFormValues {
   name: string;
@@ -111,9 +112,15 @@ function ContactForm(): JSX.Element {
       );
 
       console.log({ response });
+
+      toast("Form submitted successfully!", {
+        type: "success",
+      });
     } catch (e) {
       console.error(e);
-      alert("Failed to submit form. Please try again later.");
+      toast("Failed to submit form. Please try again later.", {
+        type: "error",
+      });
     }
   };
 
