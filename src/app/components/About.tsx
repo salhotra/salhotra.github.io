@@ -25,6 +25,15 @@ const aboutMe: string[] = [
   in my career, including 8 mobile applications and 9 web applications in
   a professional capacity. I have also built some personal projects,
   albeit smaller in scale and experimental in nature.`,
+
+  `I understand that software development is not just about writing code.
+  It is about understanding the problem from the stakeholder's and the consumer's
+  perspective. It is about designing a solution that is maintainable and scalable.
+  It is about writing code that is clean, efficient, and well-tested. It is about
+  working with a team to deliver a product that meets the needs of the consumer whilst
+  respecting the constraints of time and resources.`,
+
+  `Let's connect and discuss how I can help you build your next awesome project.`,
 ];
 
 const useContainerSize = (ref: React.RefObject<HTMLDivElement>) => {
