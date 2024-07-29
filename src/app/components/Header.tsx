@@ -4,24 +4,10 @@ import usePageHeight from "../hooks/usePageHeight";
 import Button from "../ui/Button";
 import Link from "../ui/Link";
 import MobileNav from "./MobileNav";
+import { HeaderTheme } from "../constants";
 
 export const HeaderHeightPx = 72;
 const ResumeFileName = "Nishant Salhotra - Software Engineer - Resume.pdf";
-
-const Theme = {
-  light: {
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    textColor: "rgba(0, 0, 0, 1)",
-    buttonTextColor: "rgba(0, 0, 0, 1)",
-    buttonBackgroundColor: "rgba(255, 255, 255, 1)",
-  },
-  dark: {
-    backgroundColor: "rgba(255, 255, 255, 0)",
-    textColor: "rgba(255, 255, 255, 1)",
-    buttonTextColor: "rgba(255, 255, 255, 1)",
-    buttonBackgroundColor: "rgba(0, 0, 0, 1)",
-  },
-};
 
 function scrollToSection(sectionRef: React.RefObject<HTMLDivElement | null>) {
   if (sectionRef.current) {
@@ -55,27 +41,27 @@ function Header({
   const scrollYInputRange = [0, firstSectionHeight - 90, firstSectionHeight];
 
   const backgroundColor = useTransform(scrollY, scrollYInputRange, [
-    Theme.dark.backgroundColor,
-    Theme.dark.backgroundColor,
-    Theme.light.backgroundColor,
+    HeaderTheme.dark.backgroundColor,
+    HeaderTheme.dark.backgroundColor,
+    HeaderTheme.light.backgroundColor,
   ]);
 
   const textColor = useTransform(scrollY, scrollYInputRange, [
-    Theme.dark.textColor,
-    Theme.dark.textColor,
-    Theme.light.textColor,
+    HeaderTheme.dark.textColor,
+    HeaderTheme.dark.textColor,
+    HeaderTheme.light.textColor,
   ]);
 
   const buttonTextColor = useTransform(scrollY, scrollYInputRange, [
-    Theme.dark.buttonTextColor,
-    Theme.dark.buttonTextColor,
-    Theme.light.buttonTextColor,
+    HeaderTheme.dark.buttonTextColor,
+    HeaderTheme.dark.buttonTextColor,
+    HeaderTheme.light.buttonTextColor,
   ]);
 
   const buttonBackgroundColor = useTransform(scrollY, scrollYInputRange, [
-    Theme.dark.buttonBackgroundColor,
-    Theme.dark.buttonBackgroundColor,
-    Theme.light.buttonBackgroundColor,
+    HeaderTheme.dark.buttonBackgroundColor,
+    HeaderTheme.dark.buttonBackgroundColor,
+    HeaderTheme.light.buttonBackgroundColor,
   ]);
 
   const mobileNavBorderBottomWidth = useTransform(

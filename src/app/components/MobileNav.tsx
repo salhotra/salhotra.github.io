@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   motion,
   MotionValue,
@@ -9,6 +9,16 @@ import { SiMeteor } from "react-icons/si";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 import Button from "../ui/Button";
+import { HeaderTheme } from "../constants";
+import Stars from "./Stars";
+
+function supportsBackdropFilter() {
+  const element = document.createElement("div");
+  element.style.cssText = "backdrop-filter: blur(10px);";
+  const supports = element.style.backdropFilter !== "";
+  element.remove();
+  return supports;
+}
 
 const MotionSiMeteor = motion(SiMeteor, {
   forwardMotionProps: true,
@@ -30,59 +40,59 @@ function MobileNav(props: Props): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [toggleButtonScope, toggleButtonAnimate] = useAnimate();
   const [color, setColor] = useState(props.color.get());
+  const [browserSupportsBackdropFilter, setBrowserSupportsBackdropFilter] =
+    useState(false);
 
   useMotionValueEvent(props.color, "change", (value) => {
     setColor(value);
   });
 
-  // const toggleBackgroundDivScrolling = (isSidebarOpen: boolean) => {
-  //   // Disable scrolling when menu is open.
-  //   // This is a hacky way to disable scrolling which is not ideal but
-  //   // works for this small project. In a real-world project, we should
-  //   // not manipulate the DOM directly like this.
-  //   if (isSidebarOpen) {
-  //     document.body.style.overflow = "hidden";
-  //   } else {
-  //     document.body.style.overflow = "auto";
-  //   }
-  // };
+  useEffect(() => {
+    setBrowserSupportsBackdropFilter(supportsBackdropFilter());
+  }, []);
 
   const animateToggleButton = useCallback(
     async (isOpen: boolean) => {
       if (isOpen) {
         await toggleButtonAnimate(toggleButtonScope.current, {
           rotate: -45,
-          animationDuration: 0.1,
         });
 
-        await toggleButtonAnimate(toggleButtonScope.current, {
-          x: 1000,
-          animationDuration: 0.5,
-        });
+        await toggleButtonAnimate(
+          toggleButtonScope.current,
+          {
+            x: "120vw",
+          },
+          {
+            bounce: 0,
+          }
+        );
       } else {
         await toggleButtonAnimate(toggleButtonScope.current, {
           rotate: 135,
-          animationDuration: 0,
         });
 
-        await toggleButtonAnimate(toggleButtonScope.current, {
-          x: 0,
-          animationDuration: 0.2,
-          // animationDelay: 0,
-          // type: "decay",
-        });
+        await toggleButtonAnimate(
+          toggleButtonScope.current,
+          {
+            x: 0,
+          },
+          {
+            bounceDamping: 10,
+          }
+        );
       }
     },
     [toggleButtonAnimate, toggleButtonScope]
   );
 
+  useEffect(() => {
+    animateToggleButton(isOpen);
+  }, [animateToggleButton, isOpen]);
+
   const toggleMenu = () => {
     setIsOpen((currentValue) => {
-      const newValue = !currentValue;
-      // Do we even need to do this?
-      // toggleBackgroundDivScrolling(newValue);
-      animateToggleButton(newValue);
-      return newValue;
+      return !currentValue;
     });
   };
 
@@ -100,13 +110,22 @@ function MobileNav(props: Props): JSX.Element {
         animate={{
           transform: isOpen ? "translateX(-6%)" : "translateX(-100%)",
         }}
-        transition={{ duration: 0.3, delay: isOpen ? 0.4 : 0 }}
-        className="fixed top-0 left-0 h-full w-full z-10 bg-gray-100 py-12 pl-[12vw] text-white border-r-2 border-white"
-        style={{
-          background: "rgba(0, 0, 0, 0.2)",
-          backdropFilter: "blur(10px)",
-        }}
+        transition={{ duration: 0.3, delay: isOpen ? 0.6 : 0 }}
+        className="fixed top-0 left-0 h-full w-full z-10 bg-gray-100 py-12 pl-[12vw] text-white border-r-2 border-white mobile-nav-container"
+        style={
+          browserSupportsBackdropFilter
+            ? {
+                background: "rgba(0, 0, 0, 0.2)",
+                backdropFilter: "blur(10px)",
+              }
+            : {
+                backgroundColor: "rgba(186, 183, 189, 1)",
+              }
+        }
       >
+        <div className="absolute top-0 left-0 right-0 bottom-0">
+          <Stars />
+        </div>
         <button onClick={toggleMenu} className="absolute top-0 right-0 p-4">
           <MotionIoMdClose size={24} color={color} />
         </button>
