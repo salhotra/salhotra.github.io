@@ -1,13 +1,8 @@
 import clsx from "clsx";
-import {
-  useScroll,
-  useTransform,
-  motion,
-  useAnimation,
-  MotionValue,
-} from "framer-motion";
+import { useScroll, useTransform, motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 import usePageHeight from "../hooks/usePageHeight";
+import Button from "../ui/Button";
 
 export const HeaderHeightPx = 72;
 const ResumeFileName = "Nishant Salhotra - Software Engineer - Resume.pdf";
@@ -85,40 +80,6 @@ function HeaderLink({
         transition={{ duration: 0.4 }}
       />
     </Link>
-  );
-}
-
-/**
- * ----------------------------------------
- * HeaderButton Component
- * ----------------------------------------
- */
-
-function HeaderButton({
-  children,
-  onClick,
-  textColor,
-  backgroundColor,
-}: {
-  children: string;
-  textColor: MotionValue<string>;
-  backgroundColor: MotionValue<string>;
-  onClick?: () => void;
-}) {
-  return (
-    <button className="font-medium" onClick={onClick}>
-      <div className="bg-gradient-to-r from-orange-500 to-purple-500 p-[1px] rounded-full">
-        <motion.div
-          className="rounded-full px-4 py-1"
-          style={{
-            color: textColor,
-            backgroundColor,
-          }}
-        >
-          {children}
-        </motion.div>
-      </div>
-    </button>
   );
 }
 
@@ -208,13 +169,13 @@ function Header({
           </div>
 
           <div className="flex">
-            <HeaderButton
+            <Button
               textColor={buttonTextColor}
               backgroundColor={buttonBackgroundColor}
               onClick={handleResumeButtonClick}
             >
               Check Out My Resume!
-            </HeaderButton>
+            </Button>
           </div>
         </div>
       </nav>

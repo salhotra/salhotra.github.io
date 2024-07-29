@@ -19,6 +19,7 @@ import {
   UseFormRegisterReturn,
 } from "react-hook-form";
 import { upperFirst } from "../utils/upperFirst";
+import Button from "../ui/Button";
 
 interface ContactFormValues {
   name: string;
@@ -173,81 +174,83 @@ function ContactForm(): JSX.Element {
 
   return (
     <form
-      className="flex flex-col items-center justify-center mx-8 md:text-4xl text-xl text-center"
       onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center text-xl"
     >
-      <FormLine>
-        <span>
-          Hello Nishant, my name is
+      <div className="flex flex-col items-center justify-center mx-8 md:text-4xl text-xl text-center">
+        <FormLine>
+          <span>
+            Hello Nishant, my name is
+            <InputField
+              name="name"
+              placeholder="name"
+              errors={errors}
+              register={register("name", {
+                required: true,
+              })}
+            />
+          </span>
+        </FormLine>
+
+        <FormLine>
+          <span>I look forward to chatting with you about</span>
+        </FormLine>
+
+        <FormLine>
           <InputField
-            name="name"
-            placeholder="name"
+            name="subject"
+            placeholder="subject"
             errors={errors}
-            register={register("name", {
+            register={register("subject", {
               required: true,
             })}
           />
-        </span>
-      </FormLine>
+        </FormLine>
 
-      <FormLine>
-        <span>I look forward to chatting with you about</span>
-      </FormLine>
+        <FormLine>
+          <span>
+            You can reach me at
+            <InputField
+              name="email"
+              placeholder="email"
+              errors={errors}
+              register={register("email", {
+                required: true,
+                validate: (value) => {
+                  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                  if (!regex.test(value)) {
+                    return "Please enter a valid email";
+                  }
+                  return true;
+                },
+              })}
+            />
+            or
+            <InputField
+              name="phone"
+              placeholder="phone"
+              errors={errors}
+              register={register("phone", {
+                required: true,
+                validate: (value) => {
+                  const regex = /^(?:\d{10}|\+\d{11,12})$/;
+                  if (!regex.test(value)) {
+                    return "Please enter a valid phone number";
+                  }
+                  return true;
+                },
+              })}
+            />
+          </span>
+        </FormLine>
+      </div>
 
-      <FormLine>
-        <InputField
-          name="subject"
-          placeholder="subject"
-          errors={errors}
-          register={register("subject", {
-            required: true,
-          })}
-        />
-      </FormLine>
-
-      <FormLine>
-        <span>
-          You can reach me at
-          <InputField
-            name="email"
-            placeholder="email"
-            errors={errors}
-            register={register("email", {
-              required: true,
-              validate: (value) => {
-                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!regex.test(value)) {
-                  return "Please enter a valid email";
-                }
-                return true;
-              },
-            })}
-          />
-          or
-          <InputField
-            name="phone"
-            placeholder="phone"
-            errors={errors}
-            register={register("phone", {
-              required: true,
-              validate: (value) => {
-                const regex = /^(?:\d{10}|\+\d{11,12})$/;
-                if (!regex.test(value)) {
-                  return "Please enter a valid phone number";
-                }
-                return true;
-              },
-            })}
-          />
-        </span>
-      </FormLine>
-
-      <button
+      <Button
         type="submit"
         className="p-2 my-2 bg-blue-500 text-white rounded-md"
       >
         {isSubmitting ? "Submitting..." : "Submit"}
-      </button>
+      </Button>
     </form>
   );
 }
@@ -268,7 +271,10 @@ function Contact(): JSX.Element {
 
       <ContactForm />
 
-      <div className="flex items-center justify-center bg-white p-4 flex-wrap">
+      <div
+        className="flex items-center justify-center bg-white p-4 flex-wrap"
+        style={{ marginTop: headingVerticalMargin }}
+      >
         {links.map((link) => (
           <div
             key={link.url}
