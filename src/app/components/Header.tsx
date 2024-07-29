@@ -1,8 +1,9 @@
 import clsx from "clsx";
-import { useScroll, useTransform, motion, useAnimation } from "framer-motion";
-import Link from "next/link";
+import { useScroll, useTransform, motion } from "framer-motion";
 import usePageHeight from "../hooks/usePageHeight";
 import Button from "../ui/Button";
+import Link from "../ui/Link";
+import MobileNav from "./MobileNav";
 
 export const HeaderHeightPx = 72;
 const ResumeFileName = "Nishant Salhotra - Software Engineer - Resume.pdf";
@@ -30,64 +31,6 @@ function scrollToSection(sectionRef: React.RefObject<HTMLDivElement | null>) {
     alert("Section not found");
   }
 }
-
-/**
- * ----------------------------------------
- * HeaderLink Component
- * ----------------------------------------
- */
-
-function HeaderLink({
-  href,
-  onClick,
-  children,
-}: {
-  href: string;
-  children: string;
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
-}) {
-  const animationControls = useAnimation();
-
-  const handleMouseEnter = () => {
-    animationControls.start({ width: "100%" });
-  };
-
-  const handleMouseLeave = () => {
-    animationControls.start({ width: 0 });
-  };
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (onClick) {
-      onClick(e);
-    }
-    animationControls.stop();
-  };
-
-  return (
-    <Link
-      href={href}
-      className="relative top-2"
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {children}
-
-      <motion.div
-        className="h-[1px] bg-white absolute left-0 right-0 bottom-0 top-7 bg-gradient-to-r from-orange-500 to-purple-500"
-        initial={{ width: 0 }}
-        animate={animationControls}
-        transition={{ duration: 0.4 }}
-      />
-    </Link>
-  );
-}
-
-/**
- * ----------------------------------------
- * Header Component
- * ----------------------------------------
- */
 
 interface Props {
   firstSectionRef: React.RefObject<HTMLDivElement | null>;
@@ -135,6 +78,12 @@ function Header({
     Theme.light.buttonBackgroundColor,
   ]);
 
+  const mobileNavBorderBottomWidth = useTransform(
+    scrollY,
+    [0, firstSectionHeight - 20, firstSectionHeight],
+    [0, 0, 1]
+  );
+
   const handleClickAboutLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     scrollToSection(aboutSectionRef);
@@ -150,44 +99,63 @@ function Header({
   };
 
   return (
-    <motion.header
-      className={clsx(
-        "z-10 fixed left-0 right-0 flex justify-between items-center md:px-8 px-4 bg-transparent text-white w-full"
-      )}
-      style={{ backgroundColor, color: textColor, height: HeaderHeightPx }}
-      initial={{ backgroundColor: "transparent", color: "white" }}
-    >
-      <nav className="flex flex-1">
-        <div className="flex flex-1 text-md font-semibold justify-between align-center">
-          <div className="flex space-x-6">
-            <HeaderLink href="/" onClick={handleClickAboutLink}>
-              ABOUT ME
-            </HeaderLink>
-            <HeaderLink href="/" onClick={handleClickContactLink}>
-              CONTACT ME
-            </HeaderLink>
-          </div>
+    <>
+      <motion.header
+        className={clsx(
+          "md:flex hidden z-10 fixed left-0 right-0 flex justify-between items-center md:px-8 px-4 bg-transparent text-white w-full"
+        )}
+        style={{ backgroundColor, color: textColor, height: HeaderHeightPx }}
+        initial={{ backgroundColor: "transparent", color: "white" }}
+      >
+        <nav className="flex flex-1">
+          <div className="flex flex-1 text-md font-semibold justify-between align-center">
+            <div className="flex space-x-6">
+              <Link onClick={handleClickAboutLink} className="top-2">
+                ABOUT ME
+              </Link>
+              <Link onClick={handleClickContactLink} className="top-2">
+                CONTACT ME
+              </Link>
+            </div>
 
-          <div className="flex">
-            <Button
-              textColor={buttonTextColor}
-              backgroundColor={buttonBackgroundColor}
-              onClick={handleResumeButtonClick}
-            >
-              Check Out My Resume!
-            </Button>
+            <div className="flex">
+              <Button
+                textColor={buttonTextColor}
+                backgroundColor={buttonBackgroundColor}
+                onClick={handleResumeButtonClick}
+              >
+                Check Out My Resume!
+              </Button>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+        <motion.div
+          className={clsx("h-[1px] bg-spaceblack absolute left-4 right-4")}
+          style={{ y: headerBottomTranslateY, top: HeaderHeightPx }}
+          // High initial value to hide the line initially
+          initial={{ y: -10000 }}
+        />
+      </motion.header>
 
-      {/* Header bottom line */}
-      <motion.div
-        className={clsx("h-[1px] bg-spaceblack absolute left-4 right-4")}
-        style={{ y: headerBottomTranslateY, top: HeaderHeightPx }}
-        // High initial value to hide the line initially
-        initial={{ y: -10000 }}
-      />
-    </motion.header>
+      <motion.header
+        className="md:hidden fixed top-0 left-0 right-0 bg-transparent z-10"
+        style={{
+          backgroundColor,
+          color: textColor,
+          height: HeaderHeightPx,
+          borderBottomWidth: mobileNavBorderBottomWidth,
+        }}
+        initial={{ backgroundColor: "transparent", color: "white" }}
+      >
+        <MobileNav
+          color={textColor}
+          backgroundColor={backgroundColor}
+          handleClickAboutLink={handleClickAboutLink}
+          handleClickContactLink={handleClickContactLink}
+          handleResumeButtonClick={handleResumeButtonClick}
+        />
+      </motion.header>
+    </>
   );
 }
 

@@ -8,6 +8,7 @@ import About from "./components/About";
 import { useRef } from "react";
 import Header from "./components/Header";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 export default function Home(): JSX.Element {
   const firstSectionRef = useRef<HTMLDivElement | null>(null);
@@ -15,7 +16,7 @@ export default function Home(): JSX.Element {
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between overflow-auto relative">
+    <main className="flex min-h-screen flex-col items-center justify-between overflow-y-auto overflow-x-clip relative">
       <Header
         firstSectionRef={firstSectionRef}
         aboutSectionRef={aboutSectionRef}
@@ -53,6 +54,7 @@ export default function Home(): JSX.Element {
       >
         <Contact />
       </section>
+      <Footer />
     </main>
   );
 }

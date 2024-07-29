@@ -28,61 +28,6 @@ interface ContactFormValues {
   subject: string;
 }
 
-interface LinkProps {
-  url: string;
-  label: string;
-  icon: React.ReactNode;
-}
-
-const links: LinkProps[] = [
-  {
-    url: "https://www.linkedin.com/in/nishantsalhotra",
-    label: "LinkedIn",
-    icon: <FaLinkedin size={24} />,
-  },
-  {
-    url: "mailto:nsalhotraworkl@gmail.com",
-    label: "Mail",
-    icon: <IoMdMail size={28} />,
-  },
-  {
-    url: "https://twitter.com/n_salhotra",
-    label: "Twitter",
-    icon: <FaTwitter size={24} />,
-  },
-  {
-    url: "https://github.com/salhotra",
-    label: "GitHub",
-    icon: <FaGithub size={24} />,
-  },
-  {
-    url: "https://www.hackerrank.com/profile/nishant_salhotra",
-    label: "HackerRank",
-    icon: <FaHackerrank size={22} />,
-  },
-  {
-    url: "https://medium.com/@nishant_salhotra",
-    label: "Medium",
-    icon: <FaMedium size={24} />,
-  },
-];
-
-function SocialLinkTile({ url, label, icon }: LinkProps): JSX.Element {
-  return (
-    <motion.a
-      href={url}
-      target="_blank"
-      rel="noreferrer"
-      className="flex items-center justify-center p-4 w-full h-full"
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 1.2 }}
-    >
-      {icon}
-      <span className="ml-2 text-2xl">{label}</span>
-    </motion.a>
-  );
-}
-
 function makeErrorMessage(error: FieldError | undefined, name: string): string {
   if (!error) {
     return "";
@@ -245,47 +190,29 @@ function ContactForm(): JSX.Element {
         </FormLine>
       </div>
 
-      <Button
-        type="submit"
-        className="p-2 my-2 bg-blue-500 text-white rounded-md"
-      >
-        {isSubmitting ? "Submitting..." : "Submit"}
-      </Button>
+      <Button type="submit">{isSubmitting ? "Submitting..." : "Submit"}</Button>
     </form>
   );
 }
 
 function Contact(): JSX.Element {
   const windowSize = useWindowSize();
-  const headingVerticalMargin =
-    windowSize.width > MobileWidthPx ? windowSize.height * 0.15 : 32;
+  const verticalMargins =
+    windowSize.width > MobileWidthPx ? windowSize.height * 0.15 : 64;
 
   return (
-    <div className="flex flex-col justify-center">
+    <div
+      className="flex flex-col justify-center"
+      style={{ marginBottom: verticalMargins }}
+    >
       <SectionHeading
-        marginTop={headingVerticalMargin}
-        marginBottom={headingVerticalMargin}
+        marginTop={verticalMargins}
+        marginBottom={verticalMargins}
       >
         GET IN TOUCH
       </SectionHeading>
 
       <ContactForm />
-
-      <div
-        className="flex items-center justify-center bg-white p-4 flex-wrap"
-        style={{ marginTop: headingVerticalMargin }}
-      >
-        {links.map((link) => (
-          <div
-            key={link.url}
-            className={clsx(
-              "lg:w-1/3 w-1/2 h-24 flex items-center justify-center border-t-1"
-            )}
-          >
-            <SocialLinkTile {...link} />
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

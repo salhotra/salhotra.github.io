@@ -9,9 +9,13 @@ interface Props {
   color?: string;
   size?: number;
 }
-export default function StarsInCanvas() {
+export default function StarsInCanvas({
+  style,
+}: {
+  style?: React.CSSProperties;
+}) {
   return (
-    <Canvas camera={{ position: [0, 0, 1] }}>
+    <Canvas camera={{ position: [0, 0, 1] }} style={style}>
       <Suspense fallback={<span>Loading...</span>}>
         <Stars />
       </Suspense>

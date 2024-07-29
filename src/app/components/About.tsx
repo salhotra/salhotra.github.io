@@ -166,15 +166,14 @@ function TextLine({
 function About() {
   const textWrapperRef = useRef<HTMLDivElement | null>(null);
   const windowSize = useWindowSize();
-  const headingVerticalMargin =
+  const marginTop =
+    windowSize.width > MobileWidthPx ? windowSize.height * 0.15 : 64;
+  const marginBottom =
     windowSize.width > MobileWidthPx ? windowSize.height * 0.15 : 32;
 
   return (
     <div className="flex flex-col w-full h-full">
-      <SectionHeading
-        marginTop={headingVerticalMargin + HeaderHeightPx}
-        marginBottom={headingVerticalMargin}
-      >
+      <SectionHeading marginTop={marginTop} marginBottom={marginBottom}>
         ABOUT ME
       </SectionHeading>
       <div ref={textWrapperRef}>
