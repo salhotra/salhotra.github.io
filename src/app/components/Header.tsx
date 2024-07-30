@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import { HeaderTheme } from "../constants";
-import usePageHeight from "../hooks/usePageHeight";
+import useContainerSize from "../hooks/useContainerSize";
 import Button from "../ui/Button";
 import Link from "../ui/Link";
 import MobileNav from "./MobileNav";
@@ -31,7 +31,8 @@ function Header({
   contactSectionRef,
 }: Props): JSX.Element {
   const { scrollY } = useScroll();
-  const firstSectionHeight = usePageHeight(firstSectionRef);
+  const { containerHeight: firstSectionHeight } =
+    useContainerSize(firstSectionRef);
 
   const headerBottomTranslateY = useTransform(
     scrollY,

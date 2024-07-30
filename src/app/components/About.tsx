@@ -8,6 +8,7 @@ import {
 import { Fragment, useEffect, useRef, useState } from "react";
 
 import { MobileWidthPx } from "../constants";
+import useContainerSize from "../hooks/useContainerSize";
 import useWindowSize from "../hooks/useWindowSize";
 import SectionHeading from "../ui/SectionHeading";
 
@@ -35,33 +36,6 @@ const aboutMe: string[] = [
 
   `Let's connect and discuss how I can help you build your next awesome project.`,
 ];
-
-const useContainerSize = (ref: React.RefObject<HTMLDivElement>) => {
-  const [containerWidth, setContainerWidth] = useState(0);
-  const [containerHeight, setContainerHeight] = useState(0);
-
-  useEffect(() => {
-    if (ref.current) {
-      setContainerWidth(ref.current.clientWidth);
-      setContainerHeight(ref.current.clientHeight);
-    }
-
-    const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        setContainerWidth(entry.contentRect.width);
-        setContainerHeight(entry.contentRect.height);
-      }
-    });
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [ref]);
-
-  return { containerWidth, containerHeight };
-};
 
 const splitTextIntoLines = (
   text: string,
