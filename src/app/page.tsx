@@ -1,14 +1,15 @@
 "use client";
 
 import clsx from "clsx";
-import { kiMedium } from "./fonts";
-import Stars from "./components/Stars";
-import TypedText from "./components/TypedText";
-import About from "./components/About";
 import { useRef } from "react";
-import Header from "./components/Header";
+
+import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Stars from "./components/Stars";
+import TypedText from "./components/TypedText";
+import { kiMedium } from "./fonts";
 
 export default function Home(): JSX.Element {
   const firstSectionRef = useRef<HTMLDivElement | null>(null);

@@ -1,16 +1,17 @@
 import React from "react";
-import SectionHeading from "../ui/SectionHeading";
-import useWindowSize from "../hooks/useWindowSize";
-import { MobileWidthPx } from "../constants";
 import {
   FieldError,
   FieldErrors,
-  useForm,
   UseFormRegisterReturn,
+  useForm,
 } from "react-hook-form";
-import { upperFirst } from "../utils/upperFirst";
-import Button from "../ui/Button";
 import { toast } from "react-toastify";
+
+import { MobileWidthPx } from "../constants";
+import useWindowSize from "../hooks/useWindowSize";
+import Button from "../ui/Button";
+import SectionHeading from "../ui/SectionHeading";
+import { upperFirst } from "../utils/upperFirst";
 
 interface ContactFormValues {
   name: string;

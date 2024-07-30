@@ -1,4 +1,3 @@
-import { useRef, useState, useEffect, Fragment } from "react";
 import {
   motion,
   useMotionValue,
@@ -6,9 +5,11 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { Fragment, useEffect, useRef, useState } from "react";
+
 import { MobileWidthPx } from "../constants";
-import SectionHeading from "../ui/SectionHeading";
 import useWindowSize from "../hooks/useWindowSize";
+import SectionHeading from "../ui/SectionHeading";
 
 const aboutMe: string[] = [
   `I have dedicated a decade of my life to the art of software development.

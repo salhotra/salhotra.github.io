@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
 import {
-  motion,
   MotionValue,
+  motion,
   useAnimate,
   useMotionValueEvent,
 } from "framer-motion";
-import { SiMeteor } from "react-icons/si";
-import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { IoMdClose } from "react-icons/io";
+import { SiMeteor } from "react-icons/si";
+
 import Button from "../ui/Button";
 import Stars from "./Stars";
 

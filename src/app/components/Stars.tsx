@@ -1,8 +1,8 @@
-import * as THREE from "three";
-import { useState, useRef, Suspense } from "react";
+import { PointMaterial, Points } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
 import * as random from "maath/random";
+import { Suspense, useRef, useState } from "react";
+import * as THREE from "three";
 
 interface Props {
   count?: number;

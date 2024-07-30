@@ -1,6 +1,6 @@
-import NextLink from "next/link";
-import { useAnimation, motion } from "framer-motion";
 import clsx from "clsx";
+import { motion, useAnimation } from "framer-motion";
+import NextLink from "next/link";
 
 function Link({
   href,

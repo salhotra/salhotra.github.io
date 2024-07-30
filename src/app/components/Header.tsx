@@ -1,10 +1,11 @@
 import clsx from "clsx";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+import { HeaderTheme } from "../constants";
 import usePageHeight from "../hooks/usePageHeight";
 import Button from "../ui/Button";
 import Link from "../ui/Link";
 import MobileNav from "./MobileNav";
-import { HeaderTheme } from "../constants";
 
 export const HeaderHeightPx = 72;
 const ResumeFileName = "Nishant Salhotra - Software Engineer - Resume.pdf";

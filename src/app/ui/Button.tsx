@@ -1,4 +1,4 @@
-import { motion, motionValue, MotionValue } from "framer-motion";
+import { MotionValue, motion, motionValue } from "framer-motion";
 
 interface Props {
   children: string;

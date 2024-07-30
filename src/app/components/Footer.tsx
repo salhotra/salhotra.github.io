@@ -1,14 +1,15 @@
 import clsx from "clsx";
 import {
-  FaLinkedin,
-  FaTwitter,
   FaGithub,
   FaHackerrank,
+  FaLinkedin,
   FaMedium,
+  FaTwitter,
 } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
-import Stars from "./Stars";
+
 import Link from "../ui/Link";
+import Stars from "./Stars";
 
 interface LinkProps {
   url: string;
