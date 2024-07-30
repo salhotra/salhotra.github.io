@@ -6,7 +6,6 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { HeaderHeightPx } from "./Header";
 import { MobileWidthPx } from "../constants";
 import SectionHeading from "../ui/SectionHeading";
 import useWindowSize from "../hooks/useWindowSize";

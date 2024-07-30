@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { motion } from "framer-motion";
 import {
   FaLinkedin,
   FaTwitter,

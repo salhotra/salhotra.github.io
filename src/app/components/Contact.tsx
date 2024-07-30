@@ -1,17 +1,7 @@
 import React from "react";
-import { motion } from "framer-motion";
 import SectionHeading from "../ui/SectionHeading";
 import useWindowSize from "../hooks/useWindowSize";
 import { MobileWidthPx } from "../constants";
-import clsx from "clsx";
-import {
-  FaLinkedin,
-  FaHackerrank,
-  FaMedium,
-  FaTwitter,
-  FaGithub,
-} from "react-icons/fa6";
-import { IoMdMail } from "react-icons/io";
 import {
   FieldError,
   FieldErrors,
