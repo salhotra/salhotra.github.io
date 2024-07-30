@@ -10,7 +10,6 @@
   "htmlWhitespaceSensitivity": "css",
   "singleAttributePerLine": false,
   "bracketSameLine": false,
-  "jsxBracketSameLine": false,
   "printWidth": 80,
   "useTabs": false,
 
